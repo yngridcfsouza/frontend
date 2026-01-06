@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { loginSchema, type LoginSchema } from "@/schemas/loginSchema";
+import { useAuth } from "@/contexts/AuthContext";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,14 +15,34 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Login() {
+  const { toast } = useToast();
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
   async function onSubmit(data: LoginSchema) {
-    console.log("login payload:", data);
+    try {
+      await signIn(data.email, data.password);
+
+      toast({
+        title: "Login realizado com sucesso",
+      });
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Erro ao fazer login",
+        description: "Verifique suas credenciais e tente novamente",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -75,8 +96,8 @@ export default function Login() {
               {form.formState.isSubmitting ? "Entrando..." : "Entrar"}
             </Button>
           </form>
-          <Link to="/register" className="text-sm text-muted-foreground block text-center mt-4">
-            <span className="underline block text-center">Não tem uma conta? Cadastre-se</span>
+          <Link to="/" className="text-sm text-muted-foreground block text-center mt-4">
+            <span className="underline block text-center">Não tem uma conta? Clique aqui para nos contatar!</span>
           </Link>
         </CardContent>
       </Card>

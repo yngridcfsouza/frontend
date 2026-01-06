@@ -9,9 +9,9 @@ export function Header() {
       </span>
 
       <nav className="font-bold text-sm text-quintec flex gap-4 mr-4 md:gap-8 md:mr-8">
-        <Link to="/">Início</Link>
         <Link to="/">Nossos Produtos</Link>
         <Link to="/">Contate-nos</Link>
+        <Link to="/login">Login</Link>
       </nav>
     </header>
   );

@@ -3,30 +3,60 @@ import { createBrowserRouter } from "react-router-dom";
 import HomePage from "@/pages/Home";
 import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
+import AddCard from "@/pages/elevator/AddCard";
 
 import GeneralLayout from "@/layouts/GeneralLayout";
 import PublicLayout from "@/layouts/PublicLayout";
+import { PrivateRoutes, PublicRoutes } from "./ProtectedRoutes";
+import DeleteCard from "@/pages/elevator/DeleteCard";
+import AllCards from "@/pages/elevator/AllCards";
 
 export const router = createBrowserRouter([
   {
     element: <PublicLayout />,
     children: [
       {
-        path: "/login",
-        element: <Login />,
+        path: "login",
+        element: (
+          <PublicRoutes>
+            <Login />
+          </PublicRoutes>
+        ),
       },
       {
-        path: "/",
+        index: true,
         element: <HomePage />,
       },
     ]
   },
   {
-    element: <GeneralLayout />,
-    children: [
+    element: <PrivateRoutes />,
+    children:[
       {
-        path: "/dashboard",
-        element: <Dashboard />,
+        element: <GeneralLayout />,
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "access-control",
+            children: [
+              {
+                path: "add-card",
+                element: <AddCard />,
+              },
+              {
+                path: "all-cards",
+                element: <AllCards />,
+              },
+              {
+                path: "delete-card",
+                element: <DeleteCard />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

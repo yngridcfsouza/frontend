@@ -81,11 +81,11 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
         {collapsed
           ? (
           <Button variant="ghost" size="icon" onClick={onToggleSidebar}>
-            <img src="./simbolo-qtc.png" className="h-8"/>
+            <img src="./favicon.svg" className="h-8"/>
           </Button>
           ) : (
-          <Button variant="ghost" size="default" onClick={onToggleSidebar} >
-            <img src="./logo-horizontal.jpg" className="h-8"/>
+          <Button variant="ghost" size="lg" onClick={onToggleSidebar} >
+            <img src="./logo-horizontal.jpg" className="h-full w-full"/>
           </Button>
           )
         }

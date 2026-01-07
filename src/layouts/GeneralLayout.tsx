@@ -1,3 +1,4 @@
+import { Footer } from "@/components/Footer";
 import { Sidebar } from "@/components/Sidebar";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -17,10 +18,15 @@ export default function GeneralLayout() {
       />
 
       <div className="flex-1 flex flex-col items-center justify-center">
-        <main className="flex-1 overflow-y-auto p-6 w-full">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto max-w-7xl px-6 py-8">
+            <Outlet />
+          </div>
         </main>
+
+        <Footer />
       </div>
+
     </div>
   );
 }

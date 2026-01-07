@@ -6,14 +6,18 @@ export function useAddCard() {
   const [uid, setUid] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function execute() {
-    setLoading(true);
+  function reset() {
     setUid(null);
     setError(null);
+  }
+
+  async function handleRead(cardUid: string) {
+    setLoading(true);
+    reset();
 
     try {
-      const result = await accessControlService.addCard();
-      setUid(result.uid);
+      await accessControlService.addCard();
+      setUid(cardUid);
     } catch (err: any) {
       setError(err?.message || "Failed to add card");
     } finally {
@@ -21,16 +25,10 @@ export function useAddCard() {
     }
   }
 
-  function reset() {
-    setUid(null);
-    setError(null);
-  }
-
   return {
-    execute,
+    handleRead,
     loading,
     uid,
     error,
-    reset,
   };
 }

@@ -1,14 +1,16 @@
 import { Card } from "@/components/ui/card";
-import { Import, List, RefreshCcw } from "lucide-react";
+import { Download, List, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAllCards } from "@/hooks/useAllCards";
+import { ClipLoader } from "react-spinners";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function AllCards() {
-  const { cards, loading, error, fetchCards } = useAllCards();
+  const { cards, loading, error, fetchCards, exportCards } = useAllCards();
 
   return (
     <div className="max-w-4xl space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-center">
         <div className="flex flex-col items-center justify-center mt-8">
           <h1 className="text-3xl font-bold tracking-tight text-quintec">
             Cartões Cadastrados
@@ -19,16 +21,33 @@ export default function AllCards() {
         </div>
       </div>
 
-      <Card className="p-6 min-w-[500px]">
-        <div className="flex items-center gap-3 mb-4">
-          <List className="w-5 h-5 text-muted-foreground" />
+      <Card className="p-6 min-w-[500px] min-h-[200px] flex flex-col gap-12 items-center justify-center">
+        <div className="flex flex-col justify-center gap-4 items-center mt-4">
+          <div className="w-20 h-20 rounded-2xl bg-quintec/30 flex items-center justify-center">
+            <List className="w-8 h-8" />
+          </div>
           <span className="text-sm font-medium">
             Total: {cards.length}
           </span>
         </div>
 
-        {loading && <p className="text-muted-foreground">Carregando...</p>}
-        {error && <p className="text-destructive">{error}</p>}
+        {loading && (
+          <ClipLoader
+            color={"quintec"}
+            loading={loading}
+            size={24}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        )}
+
+        {error && (
+        <div className="w-fit h-fit px-6 py-2 rounded-lg bg-destructive/10 flex items-center justify-center">
+          <p className="text-destructive text-sm">
+            {"Erro ao carregar lista, verifique a conexão ou tente novamente mais tarde"}
+          </p>
+        </div>
+        )}
 
         {!loading && !error && (
           <div className="overflow-auto max-h-[400px]">
@@ -56,12 +75,20 @@ export default function AllCards() {
         )}
       </Card>
       <div className="flex justify-between text-quintec">
-        <Button variant="outline" onClick={fetchCards} className="h-10">
+        <Button
+          variant="outline"
+          onClick={fetchCards}
+          className="h-10"
+        >
           <RefreshCcw className="w-4 h-4 mr-2" />
           Atualizar
         </Button>
-        <Button variant="outline" onClick={fetchCards} className="h-10">
-          <Import className="w-4 h-4 mr-2" />
+        <Button
+          variant="outline"
+          onClick={exportCards}
+          className="h-10"
+        >
+          <Download className="w-4 h-4 mr-2" />
           Exportar lista de cartões
         </Button>
       </div>

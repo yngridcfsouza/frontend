@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import {
@@ -10,10 +10,12 @@ import {
   ChevronDown,
   List,
   Trash2,
+  LogOut,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 type SidebarProps = {
   collapsed: boolean;
@@ -68,6 +70,10 @@ const navItems: NavItem[] = [
 export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
   const location = useLocation();
   const [openItem, setOpenItem] = useState<string | null>(null);
+
+  const { signOut } = useAuth();
+
+  const navigate = useNavigate();
 
   function toggleItem(label: string) {
     setOpenItem((prev) => (prev === label ? null : label));
@@ -190,8 +196,24 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
         })}
       </nav>
 
-      <div className="border-t p-4 text-xs text-muted-foreground flex items-center justify-center gap-2">
+      <div className="border-t p-4 text-xs text-muted-foreground flex flex-col items-center justify-center gap-2">
         {collapsed ? <User className="h-4 w-4" /> : "Usuário logado"}
+        <div className="border-t p-4">
+          <button
+            onClick={() => {
+              signOut();
+              navigate("/login");
+            }}
+            className={cn(
+              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+              "text-muted-foreground hover:bg-destructive/10 hover:text-destructive",
+              collapsed && "justify-center px-2"
+            )}
+          >
+            <LogOut className="h-4 w-4" />
+            {!collapsed && <span>Sair</span>}
+          </button>
+        </div>
       </div>
     </aside>
   );

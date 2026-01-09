@@ -1,19 +1,8 @@
 export function Footer() {
   return (
-    <footer className="mt-auto bg-background w-full rounded-lg">
+    <footer className="mt-auto bg-background w-full rounded-lg text-center">
       <div className="mx-auto max-w-5xl px-6 py-4">
-        <div className="flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-
-          {/* ESQUERDA */}
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-foreground">
-              Quintec
-            </span>
-            <span>•</span>
-            <span>Serviços e Soluções Tecnológicas</span>
-          </div>
-
-          {/* DIREITA */}
+        <div className="flex flex-col gap-3 text-xs text-muted-foreground flex-row items-center justify-center">
           <div className="flex items-center gap-4">
             <a
               href="#"
@@ -21,12 +10,14 @@ export function Footer() {
             >
               Suporte
             </a>
+            <span>•</span>
             <a
               href="#"
               className="hover:text-foreground transition-colors"
             >
               Documentação
             </a>
+            <span>•</span>
             <a
               href="#"
               className="hover:text-foreground transition-colors"
@@ -36,11 +27,16 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between mt-2">
+        <div className="flex gap-3 text-xs text-muted-foreground flex-row items-center justify-center mt-2">
           <span>
-            @2025 Todos os direitos reservados
+            Quintec - Serviços e Soluções Tecnológicas
           </span>
-          <span className="text-xs text-muted-foreground">
+          <span> • </span>
+          <span>
+            © 2025 Todos os direitos reservados
+          </span>
+          <span> • </span>
+          <span>
             v2.0.0
           </span>
         </div>

@@ -7,9 +7,9 @@ export default function AddCard() {
   const { error, handleRead, loading, uid } = useAddCard();
 
   return (
-    <div className="max-w-4xl space-y-8">
+    <div className="max-w-7xl space-y-8">
       {/* HEADER */}
-      <div className=" flex flex-col items-center justify-center mt-8">
+      <div className=" flex flex-col items-center justify-center mt-8 md:w-[600px] lg:w-[800px] w-fit text-center">
         <h1 className="text-3xl text-quintec font-bold tracking-tight">
           Novo Cartão RFID
         </h1>

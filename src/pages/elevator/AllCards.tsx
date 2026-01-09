@@ -3,25 +3,22 @@ import { Download, List, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAllCards } from "@/hooks/useAllCards";
 import { ClipLoader } from "react-spinners";
-import { useAuth } from "@/contexts/AuthContext";
 
 export default function AllCards() {
   const { cards, loading, error, fetchCards, exportCards } = useAllCards();
 
   return (
-    <div className="max-w-4xl space-y-8">
-      <div className="flex items-center justify-center">
-        <div className="flex flex-col items-center justify-center mt-8">
-          <h1 className="text-3xl font-bold tracking-tight text-quintec">
-            Cartões Cadastrados
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Lista de cartões atualmente registrados no sistema.
-          </p>
-        </div>
+    <div className="max-w-7xl space-y-8">
+      <div className="flex flex-col items-center justify-center mt-8 md:w-[600px] lg:w-[800px] w-fit text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-quintec">
+          Cartões Cadastrados
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Lista de cartões atualmente registrados no sistema.
+        </p>
       </div>
 
-      <Card className="p-6 min-w-[500px] min-h-[200px] flex flex-col gap-12 items-center justify-center">
+      <Card className="p-6 min-h-[200px] flex flex-col gap-12 items-center justify-center">
         <div className="flex flex-col justify-center gap-4 items-center mt-4">
           <div className="w-20 h-20 rounded-2xl bg-quintec/30 flex items-center justify-center">
             <List className="w-8 h-8" />

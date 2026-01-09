@@ -10,6 +10,8 @@ import PublicLayout from "@/layouts/PublicLayout";
 import { PrivateRoutes, PublicRoutes } from "./ProtectedRoutes";
 import DeleteCard from "@/pages/elevator/DeleteCard";
 import AllCards from "@/pages/elevator/AllCards";
+import AccessControl from "@/pages/elevator";
+import Settings from "@/pages/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +45,10 @@ export const router = createBrowserRouter([
             path: "access-control",
             children: [
               {
+                path: "institutional",
+                element: <AccessControl />,
+              },
+              {
                 path: "add-card",
                 element: <AddCard />,
               },
@@ -55,6 +61,10 @@ export const router = createBrowserRouter([
                 element: <DeleteCard />,
               },
             ],
+          },
+          {
+            path: "settings",
+            element: <Settings />,
           },
         ],
       },

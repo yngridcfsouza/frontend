@@ -71,7 +71,7 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
   const location = useLocation();
   const [openItem, setOpenItem] = useState<string | null>(null);
 
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   const navigate = useNavigate();
 
@@ -81,24 +81,24 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
 
   return (
     <aside
-    className={cn( "border-r bg-background flex flex-col transition-all duration-300 rounded-lg", collapsed ? "w-16" : "w-64" )}
+      className={cn("h-[98vh] sticky top-0 border-r bg-background flex flex-col transition-all duration-300 rounded-lg",  collapsed ? "w-16" : "w-64" )}
     >
       <div className="p-4 font-bold text-lg flex justify-center border-b mb-6">
         {collapsed
           ? (
           <Button variant="ghost" size="icon" onClick={onToggleSidebar}>
-            <img src="./favicon.svg" className="h-8"/>
+            <img src="/favicon.svg" alt="Logo" className="h-8"/>
           </Button>
           ) : (
-          <Button variant="ghost" size="lg" onClick={onToggleSidebar} >
-            <img src="./logo-horizontal.jpg" className="h-full w-full"/>
+          <Button variant="ghost" size="sm" onClick={onToggleSidebar} >
+            <img src="/logo-horizontal.jpg" alt="Logo" className="h-full"/>
           </Button>
           )
         }
       </div>
 
       {/* NAVEGAÇÃO */}
-      <nav className="flex-1 px-2 py-4 space-y-2">
+      <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -146,21 +146,35 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
                   collapsed && "justify-center px-2"
                 )}
               >
-                <Icon className="h-4 w-4 shrink-0" />
+                <NavLink
+                  key={item.label}
+                  to={"access-control/institutional"}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                      isActive
+                        ? "bg-muted text-foreground font-medium"
+                        : "text-muted-foreground hover:bg-muted",
+                      collapsed && "justify-center px-2"
+                    )
+                  }
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
 
-                {!collapsed && (
-                  <>
-                    <span className="flex-1 text-left">
-                      {item.label}
-                    </span>
-                    <ChevronDown
-                      className={cn(
-                        "h-4 w-4 transition-transform",
-                        isOpen && "rotate-180"
-                      )}
-                    />
-                  </>
-                )}
+                  {!collapsed && (
+                    <>
+                      <span className="flex-1 text-left">
+                        {item.label}
+                      </span>
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          isOpen && "rotate-180"
+                        )}
+                      />
+                    </>
+                  )}
+                </NavLink>
               </button>
 
               {/* SUB-ITENS */}
@@ -197,16 +211,16 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
       </nav>
 
       <div className="border-t p-4 text-xs text-muted-foreground flex flex-col items-center justify-center gap-2">
-        {collapsed ? <User className="h-4 w-4" /> : "Usuário logado"}
-        <div className="border-t p-4">
+        {collapsed ? <User className="h-4 w-4" /> : `Olá, ${user?.name}`}
+        <div className="border-t p-4 hover:bg-destructive/10 rounded-sm">
           <button
             onClick={() => {
               signOut();
               navigate("/login");
             }}
             className={cn(
-              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-              "text-muted-foreground hover:bg-destructive/10 hover:text-destructive",
+              "flex w-full items-center gap-3 rounded-md text-sm transition-colors",
+              "text-muted-foreground hover:text-destructive",
               collapsed && "justify-center px-2"
             )}
           >

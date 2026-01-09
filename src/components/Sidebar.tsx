@@ -11,6 +11,7 @@ import {
   List,
   Trash2,
   LogOut,
+  BookPlus,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -43,6 +44,11 @@ const navItems: NavItem[] = [
     label: "Controle de Acesso",
     icon: ChevronsDownUp,
     children: [
+      {
+        label: "Mais informações",
+        to: "/access-control/institutional",
+        icon: BookPlus,
+      },
       {
         label: "Adicionar cartão",
         to: "/access-control/add-card",
@@ -98,7 +104,7 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
       </div>
 
       {/* NAVEGAÇÃO */}
-      <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
+      <nav className="flex-1 px-2 py-4 space-y-4 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -146,35 +152,21 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
                   collapsed && "justify-center px-2"
                 )}
               >
-                <NavLink
-                  key={item.label}
-                  to={"access-control/institutional"}
-                  className={({ isActive }) =>
-                    cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                      isActive
-                        ? "bg-muted text-foreground font-medium"
-                        : "text-muted-foreground hover:bg-muted",
-                      collapsed && "justify-center px-2"
-                    )
-                  }
-                >
-                  <Icon className="h-4 w-4 shrink-0" />
+                <Icon className="h-4 w-4 shrink-0" />
 
-                  {!collapsed && (
-                    <>
-                      <span className="flex-1 text-left">
-                        {item.label}
-                      </span>
-                      <ChevronDown
-                        className={cn(
-                          "h-4 w-4 transition-transform",
-                          isOpen && "rotate-180"
-                        )}
-                      />
-                    </>
-                  )}
-                </NavLink>
+                {!collapsed && (
+                  <>
+                    <span className="flex-1 text-left">
+                      {item.label}
+                    </span>
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform",
+                        isOpen && "rotate-180"
+                      )}
+                    />
+                  </>
+                )}
               </button>
 
               {/* SUB-ITENS */}

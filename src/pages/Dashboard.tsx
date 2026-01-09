@@ -3,7 +3,7 @@ import { ShieldCheck, AlertTriangle, Info, Check } from "lucide-react";
 
 export default function Dashboard() {
   return (
-    <div className="max-w-7xl space-y-10">
+    <div className="w-full space-y-10">
 
       {/* Header */}
       <div className="mt-8">
@@ -70,7 +70,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div>
             <span className="text-muted-foreground">Versão:</span>
-            <p className="font-medium">v1.0.0</p>
+            <p className="font-medium">v2.0.0</p>
           </div>
           <div>
             <span className="text-muted-foreground">Ambiente:</span>

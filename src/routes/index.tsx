@@ -10,7 +10,7 @@ import PublicLayout from "@/layouts/PublicLayout";
 import { PrivateRoutes, PublicRoutes } from "./ProtectedRoutes";
 import DeleteCard from "@/pages/elevator/DeleteCard";
 import AllCards from "@/pages/elevator/AllCards";
-import AccessControl from "@/pages/elevator";
+import AccessControl from "@/pages/elevator/AccessControl";
 import Settings from "@/pages/Settings";
 
 export const router = createBrowserRouter([
